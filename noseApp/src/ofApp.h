@@ -20,5 +20,14 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-		
+    
+
+    
+    int x = 200;
+        int y = 200;
+		float angle = 0;
+        int vx = 1;
+        int vy = 1;
+        int a = 10;
+        ofEasyCam easycam;
 };
