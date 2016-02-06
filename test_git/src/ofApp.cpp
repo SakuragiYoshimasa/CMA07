@@ -1,17 +1,36 @@
 #include "ofApp.h"
+float posx;
+bool forwarding;
+float speedx = 1;
+ofEasyCam easycam;
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    
+    forwarding = true;
+    ofSetCircleResolution(100);
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    if(forwarding){
+        posx+= speedx;
+    }else{
+        posx-= speedx;
+    }
+    
+    if(posx >= 1024){
+        forwarding = false;
+    }
+    
+    if(posx <= 0){
+        forwarding = true;
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    easycam.begin();
+
     ofBackground(0,0,0);
     ofSetColor(255, 255, 255, 255);
     /*ofCircle(300, 550, 100);
@@ -43,20 +62,36 @@ void ofApp::draw(){
     ofLine(0,768/6*5, 1024, 768/6*5);
     ofLine(0,768/6*6, 1024, 768/6*6);
     
-    ofEllipse(1024/8, 768/2, 100, 700);
-    ofCircle(1024/8*3, 768/6, 100);
-    ofRect(1024/8*4, 768/6*2, 1024/8*2, 768/6*2);
-    ofTriangle(1024/8*2+50, 768/6*4+50,  1024/8*3+50 , 768-50, 1024/8*3-50 ,768/6*6-50);
+    //ofEllipse(1024/8, 768/2, 100, 700);
+    ofSetColor(0, 0, 255);
     
+    easycam.begin();
+    ofCircle(posx, 768/6, 100);
     
+    //ofRect(1024/8*4, 768/6*2, 1024/8*2, 768/6*2);
     
+    /*ofColor color = ofColor(255, 0, 0);
+    ofSetColor(color);
+    ofTriangle(1024/8*2+50, 768/6*4+50,  1024/8*3+50 , 768-50, 1024/8*3-50 ,768/6*6-50); */
     
+    ofPushMatrix();
+    ofTranslate(1024/2, 768/2);
+    ofRotate(45);
+    ofRect(0, 0, 100, 100);
     
+    ofPopMatrix();
+    ofRect(0,0,200,200);
+    easycam.end();
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+    if(key =='a'){
+        speedx++;
+    }
+    if(key =='b'){
+        speedx--;
+    }
 }
 
 //--------------------------------------------------------------
