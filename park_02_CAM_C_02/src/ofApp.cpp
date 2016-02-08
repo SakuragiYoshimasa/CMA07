@@ -4,7 +4,10 @@
 int trackerLength = 40;
 float startTime = 0.035;
 int stage_mode = 1;
-ofSpherePrimitive box;
+ofSpherePrimitive ball;
+
+ofMesh  mesh;
+
 
 class Drawer
 {
@@ -20,19 +23,19 @@ public:
         for(int i = 0 ; i < joints.size() ; i++){
             if(joints.at(i)->getName() == "Head"){
                 ofSetColor(250, 0, 0);
-                box.set(20,20);
-                box.setPosition(joints.at(i+1)->getPosition());
-                box.draw();
+                ball.set(20,20 * (ofGetElapsedTimeMillis() % 20));
+                ball.setPosition(joints.at(i+1)->getPosition());
+                ball.draw();
             }else if(joints.at(i)->isSite()){
                 ofSetColor(0, 255, 0);
-                box.set(5,20);
-                box.setPosition(joints.at(i)->getPosition());
-                box.draw();
+                ball.set(5,20);
+                ball.setPosition(joints.at(i)->getPosition());
+                ball.draw();
             }else{
                 ofSetColor(0, 0, 255);
-                box.set(2,20);
-                box.setPosition(joints.at(i)->getPosition());
-                box.draw();
+                ball.set(2,20);
+                ball.setPosition(joints.at(i)->getPosition());
+                ball.draw();
             }
         }
     }
@@ -161,6 +164,7 @@ void ofApp::update()
             trackers[i]->update();
         }
     }
+    mesh.clearVertices();
     
 }
 
@@ -186,7 +190,7 @@ void ofApp::draw(){
         camera.setFov(90);
         camera.lookAt(ofVec3f(0,0,0));
         
-        camera.setPosition(320*cos(ofMap(ofGetElapsedTimeMillis(), 0, 2000, 0, PI)), ofGetElapsedTimeMillis()/100, 320*sin(ofMap(ofGetElapsedTimeMillis(), 0, 2000, 0, PI)));
+        camera.setPosition(320*cos(ofMap(ofGetElapsedTimeMillis(), 0, 4000, 0, PI)), ofGetElapsedTimeMillis()/100, 320*sin(ofMap(ofGetElapsedTimeMillis(), 0, 2000, 0, PI)));
         //camera.setPosition(cos(ofGetElapsedTimeMillis()/300)*300, -ofGetElapsedTimeMillis()/10, sin(ofGetElapsedTimeMillis()/300)*300 );
         
         ofNoFill();
@@ -206,14 +210,25 @@ void ofApp::draw(){
                     break;
             }
             ofSetSphereResolution(50);
-            ofCircle(0, 0, i);
+            ofDrawCircle(0, 0, i);
         }
         
         ofSetLineWidth(3);
         for (int i = 0; i < 3600; i = i + 2) {
-            ofSetColor(ofColor::fromHsb(255*pow(sin((float)ofGetElapsedTimeMillis()/1000+((float)i*PI/600)),2),255,255));
-            ofLine(cos((float)i*PI/180)*300, sin((float)i*PI/180)*300, -(i/3) ,
-                   cos((float)i*PI/180)*300, sin((float)i*PI/180)*300, -(i/3)-30 );
+//            ofSetColor(ofColor::fromHsb(255*pow(sin((float)ofGetElapsedTimeMillis()/1000+((float)i*PI/600)),2),255,255));
+//            
+//            ofDrawLine(cos((float)i*PI/180)*300, sin((float)i*PI/180)*300, -(i/3) ,
+//                   cos((float)i*PI/180)*300, sin((float)i*PI/180)*300, -(i/3)-30 );
+            
+            mesh.addColor(ofColor::fromHsb(255*pow(sin((float)ofGetElapsedTimeMillis()/1000+((float)i*PI/600)),2),255,255));
+            mesh.addVertex(ofVec3f( cos((float)i*PI/180)*300, sin((float)i*PI/180)*300, -(i/3)));
+            mesh.addVertex(ofVec3f( cos((float)i*PI/180)*300, sin((float)i*PI/180)*300, -(i/3)-30));
+            
+//            mesh.draw();
+//            mesh.drawWireframe();
+//            mesh.drawFaces();
+            mesh.drawVertices();
+            
         }
 
         
