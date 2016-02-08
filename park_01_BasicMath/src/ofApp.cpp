@@ -2,6 +2,8 @@
 
 int color_mode = 0;
 int numLine;
+int add_y = 0;
+int add_y_rate = 2;
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -12,6 +14,13 @@ void ofApp::setup(){
 void ofApp::update(){
     for(int i = 0 ; i < numLine ; i++)
         lineColor[i] = 4*i;
+
+    if(ofGetElapsedTimeMillis()%2 == 0){
+        add_y += add_y_rate;
+        if(add_y >= 100 || add_y < 0){
+            add_y_rate = -add_y_rate;
+        }
+    }
 }
 
 //--------------------------------------------------------------
@@ -19,7 +28,8 @@ void ofApp::draw(){
     ofBackgroundHex(0xffffff);
     ofSetHexColor(0x000000);
     
-    int x = 20;
+
+    
     for(int i = 0 ; i < ofGetWidth()/5 ; i++){
         if(color_mode == 0){
             ofSetColor(ofColor::fromHsb(lineColor[i], 255, 255));
@@ -28,8 +38,9 @@ void ofApp::draw(){
         }else{
             ofSetColor(0, 0, 255);
         }
-        ofLine(x,0,x,ofGetHeight());
-        x = x + 10;
+        
+        ofDrawLine(0,50+(i*add_y),ofGetWidth(),50+(i*add_y));
+        
     }
 }
 
