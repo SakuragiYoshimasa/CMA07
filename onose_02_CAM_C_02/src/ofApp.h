@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxBvh.h"
 
 class ofApp : public ofBaseApp{
 
@@ -15,10 +16,19 @@ class ofApp : public ofBaseApp{
 		void mouseDragged(int x, int y, int button);
 		void mousePressed(int x, int y, int button);
 		void mouseReleased(int x, int y, int button);
-		void mouseEntered(int x, int y);
-		void mouseExited(int x, int y);
+//		void mouseEntered(int x, int y);
+//		void mouseExited(int x, int y);
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
+    ofSoundPlayer track;
+    ofxBvh bvh[3];
+    
+    float rotate;
+    float play_rate, play_rate_t;
+    
+    ofCamera camera;
+    ofImage background;
+    
 };
