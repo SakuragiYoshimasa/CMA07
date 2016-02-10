@@ -4,9 +4,14 @@
 
 class ofApp : public ofBaseApp{
     private:
-    int size_circle = 0;
-    float *volume;
+    ofVideoGrabber video;
     ofSoundPlayer soundplayer;
+    
+    int num_bar = 9;
+    int size_bar[9];
+    
+    float * volume;
+
 
 	public:
 		void setup();
@@ -24,4 +29,6 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+    
+//        void audioIn(float * input, int bufferSize, int nChannels);
 };
