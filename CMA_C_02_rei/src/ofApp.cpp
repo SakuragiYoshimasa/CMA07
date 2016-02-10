@@ -191,6 +191,35 @@ void ofApp::draw(){
         camera.setFov(90);
         camera.lookAt(ofVec3f(0,0,0));
         camera.setPosition(320*cos(ofMap(ofGetElapsedTimeMillis(), 0, 2000, 0, PI)), ofGetElapsedTimeMillis()/100, 320*sin(ofMap(ofGetElapsedTimeMillis(), 0, 2000, 0, PI)));
+        
+        ofNoFill();
+        ofSetLineWidth(4);
+        
+        for(int i=0; i<=300; i=i+10){
+            switch (stage_mode) {
+                case 0:
+                    ofSetColor(ofRandom(255), ofRandom(255), ofRandom(255));
+                    break;
+                case 2:
+                    ofSetColor(0, 0, 255);
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+            ofSetCircleResolution(50);
+            ofCircle(0, 0, i);
+        }
+        ofSetLineWidth(3);
+        for (int i = 0; i<3600; i = i+2) {
+            
+            ofSetColor(ofColor::fromHsb(255*pow(sin((float)ofGetElapsedTimeMillis()/1000+((float)i*PI/600)),2),255,255));
+            
+            ofLine(cos((float)i*PI/180)*300,sin((float)i*PI/180)*300,-(i/3), cos((float)i*PI/180)*300, sin((float)i*PI/180)*300, -(i/3)-30);
+
+        }
+        
         //camera.setPosition(cos(ofGetElapsedTimeMillis()/300)*300, -ofGetElapsedTimeMillis()/10, sin(ofGetElapsedTimeMillis()/300)*300 );
         
         //draw stage
@@ -248,6 +277,8 @@ void ofApp::keyPressed(int key){
         ofToggleFullscreen();
     }else if (key=='s'){
         stage_mode=(stage_mode+1)%2;
+    }else if (key== 'd'){
+        stage_mode=2;
     }
 }
 
