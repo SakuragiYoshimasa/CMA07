@@ -4,7 +4,7 @@
 int trackerLength = 40;
 float startTime = 0.035;
 int stage_mode = 1;
-ofBoxPrimitive box;
+ofSpherePrimitive box;
 
 class Drawer
 {
@@ -18,10 +18,22 @@ public:
     
     void draw(){
         for(int i = 0; i < joints.size(); i++){
-            ofSetColor(25, 100, 100);
-            box.set(5, 5, 5);
-            box.setPosition(joints.at(i)->getPosition());
-            box.draw();
+            if(joints.at(i)->getName() == "Head"){
+                ofSetColor(255, 100, 100);
+                box.set(20, 20);
+                box.setPosition(joints.at(i+1)->getPosition());
+                box.draw();
+            }else if(joints.at(i)->isSite()){
+                ofSetColor(100, 255, 100);
+                box.set(5, 20);
+                box.setPosition(joints.at(i)->getPosition());
+                box.draw();
+            }else{
+                ofSetColor(100, 100, 255);
+                box.set(2, 20);
+                box.setPosition(joints.at(i)->getPosition());
+                box.draw();
+            }
         }
         
     }
