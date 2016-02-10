@@ -17,7 +17,12 @@ public:
     }
     
     void draw(){
-        
+        for(int i = 0; i < joints.size(); i++){
+            ofSetColor(25, 100, 100);
+            box.set(5, 5, 5);
+            box.setPosition(joints.at(i)->getPosition());
+            box.draw();
+        }
         
     }
 };
