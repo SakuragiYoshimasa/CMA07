@@ -2,7 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-
+    sender.setup(HOST, PORT);
 }
 
 //--------------------------------------------------------------
@@ -12,7 +12,9 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-
+    ofBackground(0);
+    ofSetColor(255);
+    ofCircle(mouseX, mouseY, 10);
 }
 
 //--------------------------------------------------------------
@@ -27,7 +29,11 @@ void ofApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-
+    ofxOscMessage m;
+    m.setAddress("/mouse/position");
+    m.addIntArg(x);
+    m.addIntArg(y);
+    sender.sendMessage(m);
 }
 
 //--------------------------------------------------------------
