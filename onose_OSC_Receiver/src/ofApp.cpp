@@ -6,6 +6,8 @@ void ofApp::setup(){
     
     remoteMouse.x = 0;
     remoteMouse.y = 0;
+    
+    mouseButtonState = "";
 }
 
 //--------------------------------------------------------------
@@ -17,6 +19,8 @@ void ofApp::update(){
         if(m.getAddress() == "/mouse/position"){
             remoteMouse.x = m.getArgAsInt32(0);
             remoteMouse.y = m.getArgAsInt32(1);
+        }else if(m.getAddress() == "/mouse/button"){
+            mouseButtonState = m.getArgAsString(0);
         }
     }
 }
@@ -24,7 +28,12 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     ofBackground(255);
-    ofSetColor(0);
+//    ofSetColor(0);
+    if(mouseButtonState == "down"){
+        ofSetColor(ofRandom(255), ofRandom(255), ofRandom(255));
+    }else{
+        ofSetColor(0);
+    }
     ofCircle(remoteMouse.x, remoteMouse.y, 30);
 }
 

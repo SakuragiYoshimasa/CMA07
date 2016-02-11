@@ -25,4 +25,6 @@ class ofApp : public ofBaseApp{
 		
     ofxOscReceiver receiver;
     ofPoint remoteMouse;
+    
+    string mouseButtonState;
 };
