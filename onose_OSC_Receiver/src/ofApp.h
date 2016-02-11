@@ -1,6 +1,10 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxOsc.h"
+
+#define HOST "/localhost"
+#define PORT 8020
 
 class ofApp : public ofBaseApp{
 
@@ -19,4 +23,6 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
+    ofxOscReceiver receiver;
+    ofPoint remoteMouse;
 };

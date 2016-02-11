@@ -2,17 +2,30 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-
+    receiver.setup(PORT);
+    
+    remoteMouse.x = 0;
+    remoteMouse.y = 0;
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    while(receiver.hasWaitingMessages()){
+        ofxOscMessage m;
+        receiver.getNextMessage(&m);
+        
+        if(m.getAddress() == "/mouse/position"){
+            remoteMouse.x = m.getArgAsInt32(0);
+            remoteMouse.y = m.getArgAsInt32(1);
+        }
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-
+    ofBackground(255);
+    ofSetColor(0);
+    ofCircle(remoteMouse.x, remoteMouse.y, 30);
 }
 
 //--------------------------------------------------------------
