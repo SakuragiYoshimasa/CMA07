@@ -29,7 +29,8 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    video.draw(0, 0);
+    
+    video.draw(ofGetWidth(), 0, -ofGetWidth(), ofGetHeight());
     for(int i = 0 ; i < num_bar ; i++){
         ofSetColor(255,255,255);
         ofDrawRectangle(ofGetWidth()-(i*40), ofGetHeight(), 15, -(size_bar[i]%(ofGetHeight()/2)));

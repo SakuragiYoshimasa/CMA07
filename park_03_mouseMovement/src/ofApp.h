@@ -9,6 +9,7 @@ class ofApp : public ofBaseApp{
     
     int num_bar = 9;
     int size_bar[9];
+    int ctr_bar[9];
     
     float * volume;
 

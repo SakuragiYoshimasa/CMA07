@@ -57,14 +57,20 @@ void ofApp::mouseMoved(int x, int y ){
     m.addIntArg(y);
     
     ofSetColor(255);
-
+    
+    
 
     sender.sendMessage(m);
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-
+    ofxOscMessage m;
+    m.setAddress("/mouse/position");
+    m.addIntArg(x);
+    m.addIntArg(y);
+    
+    sender.sendMessage(m);
 }
 
 //--------------------------------------------------------------
