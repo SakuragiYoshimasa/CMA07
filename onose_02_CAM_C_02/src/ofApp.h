@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxBvh.h"
 
+
 class ofApp : public ofBaseApp{
 
 	public:
@@ -31,4 +32,5 @@ class ofApp : public ofBaseApp{
     ofCamera camera;
     ofImage background;
     
+    int r, g, b;
 };

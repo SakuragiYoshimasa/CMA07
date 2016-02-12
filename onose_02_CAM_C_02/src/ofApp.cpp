@@ -208,12 +208,25 @@ void ofApp::draw(){
             ofCircle(0, 0, (i + 3) * 20);
         }
         
-         ofSetLineWidth(3);
-         for (int i = 0; i < 3600; i = i + 2) {
-             ofSetColor(ofColor::fromHsb(255*pow(sin((float)ofGetElapsedTimeMillis()/1000+((float)i*PI/600)),2),255,255));
-             ofLine(cos((float)i*PI/180)*300, sin((float)i*PI/180)*300, -(i/3) ,
-                    cos((float)i*PI/180)*300, sin((float)i*PI/180)*300, -(i/3)-30 );
-         }
+        // draw light
+        ofSetLineWidth(3);
+        for (int i = 0; i < 3600; i = i + 2) {
+            ofColor colorHsb =
+                ofColor::fromHsb(
+                                 255*pow(
+                                         sin((float)ofGetElapsedTimeMillis() /
+                                             1000+((float)i*PI/600)),2
+                                         ),
+                                 255,255
+                                 );
+            ofColor colorRgb;
+            r = colorHsb.r;
+            g = colorHsb.g;
+            b = colorHsb.b;
+            ofSetColor(ofColor(r, g, b));
+            ofLine(cos((float)i*PI/180)*300, sin((float)i*PI/180)*300, -(i/3) ,
+                   cos((float)i*PI/180)*300, sin((float)i*PI/180)*300, -(i/3)-30 );
+        }
         
         //draw stage
         // ofNoFill();
