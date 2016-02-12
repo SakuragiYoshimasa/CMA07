@@ -189,6 +189,45 @@ void ofApp::draw(){
         camera.setPosition(320*cos(ofMap(ofGetElapsedTimeMillis(), 0, 2000, 0, PI)), ofGetElapsedTimeMillis()/100, 320*sin(ofMap(ofGetElapsedTimeMillis(), 0, 2000, 0, PI)));
         //camera.setPosition(cos(ofGetElapsedTimeMillis()/300)*300, -ofGetElapsedTimeMillis()/10, sin(ofGetElapsedTimeMillis()/300)*300 );
         
+        ofNoFill();
+        ofSetLineWidth(4);
+        for(int i = 0; i < 50; i++){
+            switch (stage_mode) {
+                case 0:
+                    ofSetColor(ofRandom(255),ofRandom(255),ofRandom(255));
+                    break;
+                case 1:
+                    ofSetColor(255*pow(sin(ofMap((float)ofGetElapsedTimeMillis(), 0, 60000.0/132, 0, PI)+(double)i*PI/600),2));
+                    break;
+                case 2:
+                    ofSetColor(0, 0, 255);
+                default:
+                    break;
+            }
+            ofSetCircleResolution(50);
+            ofCircle(0, 0, (i + 3) * 20);
+        }
+        
+        // draw light
+        ofSetLineWidth(3);
+        for (int i = 0; i < 3600; i = i + 2) {
+            ofColor colorHsb =
+                ofColor::fromHsb(
+                                 255*pow(
+                                         sin((float)ofGetElapsedTimeMillis() /
+                                             1000+((float)i*PI/600)),2
+                                         ),
+                                 255,255
+                                 );
+            ofColor colorRgb;
+            r = colorHsb.r;
+            g = colorHsb.g;
+            b = colorHsb.b;
+            ofSetColor(ofColor(r, g, b));
+            ofLine(cos((float)i*PI/180)*300, sin((float)i*PI/180)*300, -(i/3) ,
+                   cos((float)i*PI/180)*300, sin((float)i*PI/180)*300, -(i/3)-30 );
+        }
+        
         //draw stage
         // ofNoFill();
         // ofSetLineWidth(4);
@@ -240,8 +279,10 @@ void ofApp::draw(){
 void ofApp::keyPressed(int key){
     if (key == 'f') {
         ofToggleFullscreen();
-    }else if (key=='s'){
+    }else if (key=='c'){
         stage_mode=(stage_mode+1)%2;
+    }else if (key=='s'){
+        stage_mode=2;
     }
 }
 
